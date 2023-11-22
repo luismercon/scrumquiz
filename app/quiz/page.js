@@ -68,26 +68,24 @@ const page = () => {
             <div>
                 {!showResult ?
                     (
-                        <div className="quiz-container">
+                        <div className="quiz-container" >
                             <h3>{questions[activeQuestion].question}</h3>
                             {answers.map((answer, idx) => (
-                                <li key={idx} onClick={() => onAnswerSelected(answer, idx)} className={selectedAnswerIndex === idx ? "li-selected" : "li-hover"} >
+                                <li key={idx}
+                                    onClick={() => onAnswerSelected(answer, idx)}
+                                    className={selectedAnswerIndex === idx ? "li-selected" : "li-hover"}
+                                    style={{
+                                        backgroundColor: selectedAnswer && answer === correctAnswer && selectedAnswerIndex === idx ? 'green' : 'transparent',
+                                        color: selectedAnswer && answer === correctAnswer && selectedAnswerIndex === idx ? 'white' : '#000105'
+                                    }}>
                                     <span> {answer} </span>
                                 </li>
                             ))}
-                            {checked ?
-                                (
-                                    <button onClick={nextQuestion} className="btn">
-                                        {activeQuestion === question.length - 1 ? "Finish" : "Next"}
-                                    </button>
-                                )
-                                :
-                                (
-                                    <button onClick={nextQuestion} disabled className="btn-disabled">
-                                        {" "}
-                                        {activeQuestion === question.length - 1 ? "Finish" : "Next"}
-                                    </button>
-                                )}
+                            {checked && selectedAnswer &&
+                                <button onClick={nextQuestion} className="btn">
+                                    {activeQuestion === questions.length - 1 ? "Finish" : "Next"}
+                                </button>
+                            }
                         </div>
                     )
                     :
