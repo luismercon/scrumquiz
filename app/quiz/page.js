@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from "react";
 import { quiz } from "../data";
+import confetti from 'canvas-confetti';
 
 const page = () => {
 
@@ -25,11 +26,21 @@ const page = () => {
         if (answer === correctAnswer) {
             setSelectedAnswer(true)
             console.log('true')
+            // Trigger confetti
+            triggerConfetti();
         } else {
             setSelectedAnswer(false)
             console.log('false')
         }
     }
+
+    const triggerConfetti = () => {
+        confetti({
+            particleCount: 200,
+            spread: 170,
+            origin: { y: 0.6 }
+        });
+    };
 
     const nextQuestion = () => {
         setSelectedAnswerIndex(null)
@@ -91,15 +102,12 @@ const page = () => {
                     :
                     (
                         <div className="quiz-container">
-                            <h3>Results</h3>
-                            <h4>Overall {(result.score / 25) * 100}% </h4>
+                            <h3>Welcome to the finish line!</h3>
 
-                            <p>Total Questions: <span> {questions.length} </span> </p>
-                            <p>Total Score: <span> {result.score} </span> </p>
-                            <p>Correct Answers: <span> {result.correctAnswers} </span> </p>
-                            <p>Wrong Answers: <span> {result.wrongAnswers} </span> </p>
+                            <img src="\finish_line2.png" alt="Finish Line" className="responsive-image" />
 
                             <button onClick={() => window.location.reload()} >Restart</button>
+
 
                         </div>
                     )
