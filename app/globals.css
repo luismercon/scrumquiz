@@ -49,12 +49,12 @@ li {
 
 .li-hover:hover {
   background-color: #d8d8d8;
-  columns: #fff;
+  color: #000105; /* Same text color */
 }
 
 .li-selected {
-  color: #fff;
-  background-color: #000925;
+  background-color: #000925; /* or any other background color you prefer */
+  color: #000105; /* Set the text color to be the same as unselected li elements */
 }
 
 .container {
@@ -65,12 +65,18 @@ li {
 }
 
 .quiz-container {
-  background-color: #f8f8f8;
+  background-color: #f8f8f8; /* This will be overridden by inline styles if needed */
   padding: 1rem;
   margin-top: 2rem;
   border-radius: 4px;
+  color: #000105; /* Ensure text color is visible on green background */
 }
 
 .container p {
   padding: 8px 0;
+}
+
+.responsive-image {
+  max-width: 100%;
+  height: auto;
 }
