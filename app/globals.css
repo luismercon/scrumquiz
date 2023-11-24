@@ -15,6 +15,7 @@ main {
 
 h1, h2 {
   color: #eee;
+  text-align: center;
 }
 
 h3 {
@@ -49,12 +50,12 @@ li {
 
 .li-hover:hover {
   background-color: #d8d8d8;
-  color: #000105; /* Same text color */
+  color: #000105; 
 }
 
 .li-selected {
-  background-color: #000925; /* or any other background color you prefer */
-  color: #000105; /* Set the text color to be the same as unselected li elements */
+  background-color: #000925; 
+  color: #000105;
 }
 
 .container {
@@ -65,11 +66,11 @@ li {
 }
 
 .quiz-container {
-  background-color: #f8f8f8; /* This will be overridden by inline styles if needed */
+  background-color: #f8f8f8; 
   padding: 1rem;
   margin-top: 2rem;
   border-radius: 4px;
-  color: #000105; /* Ensure text color is visible on green background */
+  color: #000105; 
 }
 
 .container p {
@@ -79,4 +80,65 @@ li {
 .responsive-image {
   max-width: 100%;
   height: auto;
+}
+
+.modal {
+  margin: auto;
+  width: 75%;
+  background-color: red;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 1000; 
+  color:#eee;
+}
+
+.modal p {
+text-align: center;
+}
+
+.modal h2{
+  text-align: center;  
+}
+
+.image-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal img{
+  min-width: 50%;
+  max-width: 90%;
+  padding: 15px;  
+}
+
+.modal-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); /*opacity */
+  z-index: 999; 
+}
+
+.reading-suggestion-container{
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #d8d8d8;
+  text-align: center;
+}
+
+.reading-suggestion-container a{  
+  text-decoration: none;
+  font-weight: 800;
+  color: #000105;
+}
+
+.timer {
+  font-size: x-large;
+  font-weight: 800;
 }

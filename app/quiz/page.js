@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { quiz } from '../data';
 import confetti from 'canvas-confetti';
+import WrongAnswerModal from '../components/WrongAnswerModal'
 
 const page = () => {
     const [activeQuestion, setActiveQuestion] = useState(0);
@@ -9,6 +10,8 @@ const page = () => {
     const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
     const [showResult, setShowResult] = useState(false);
     const [result, setResult] = useState({ score: 0, correctAnswers: 0, wrongAnswers: 0 });
+    const [showWrongAnswerModal, setShowWrongAnswerModal] = useState(false);
+    const [timer, setTimer] = useState(120); // 2 minutes in seconds
 
     const { question, answers, correctAnswer } = quiz.questions[activeQuestion];
 
@@ -19,6 +22,11 @@ const page = () => {
 
         if (isCorrect) {
             confetti({ particleCount: 200, spread: 170, origin: { y: 0.6 } });
+        }
+
+        if (!isCorrect) {
+            setShowWrongAnswerModal(true);
+            setTimer(120); // Reset timer to 2 minutes
         }
 
         updateResult(isCorrect);
@@ -49,6 +57,7 @@ const page = () => {
         <div className="container">
             <h1>Quiz Page</h1>
             {!showResult ? <Quiz activeQuestion={activeQuestion} question={question} answers={answers} selectedAnswer={selectedAnswer} selectedAnswerIndex={selectedAnswerIndex} handleAnswerSelection={handleAnswerSelection} goToNextQuestion={goToNextQuestion} /> : <Results result={result} />}
+            {showWrongAnswerModal && <WrongAnswerModal timer={timer} setTimer={setTimer} closeModal={() => setShowWrongAnswerModal(false)} />}
         </div>
     );
 };
