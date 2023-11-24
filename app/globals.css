@@ -83,33 +83,55 @@ li {
 }
 
 .modal {
+  width: 50%; /* Default width for larger screens */
+  position: relative; /* Center in the overlay */
   margin: auto;
-  width: 75%;
   background-color: red;
   padding: 20px;
   border-radius: 10px;
   z-index: 1000; 
   color:#eee;
+  max-height: 90vh; /* 90% of the viewport height */
+  overflow-y: auto; /* Enable scrolling for overflowing content */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+  .modal {
+    width: 80%; /* Larger width for smaller screens */
+    max-height: 90vh; /* Adjust height for smaller screens */
+  }
+}
+
+/* Media query for large screens */
+@media (min-width: 1200px) {
+  .modal {
+    width: 40%; /* Smaller width for larger screens */
+    max-height: 80vh; /* Adjust height for larger screens */
+  }
 }
 
 .modal p {
 text-align: center;
+padding: 10px;;
 }
 
 .modal h2{
-  text-align: center;  
+  text-align: center;
+  padding: 10px;  
 }
 
 .image-container{
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 10px; 
 }
 
 .modal img{
-  min-width: 50%;
-  max-width: 90%;
-  padding: 15px;  
+  max-width: 100%; /* Full width of the modal */
+  max-height: 40vh; /* Maximum height to avoid overflow */
+  height: auto; /* Maintain aspect ratio */  
 }
 
 .modal-overlay {
