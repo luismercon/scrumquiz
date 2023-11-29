@@ -8,6 +8,9 @@ export default function Home() {
         <Link href='/quiz'>
           <button>Academic Mode</button>
         </Link>
+        <Link href='/'>
+          <button>Challenge Mode</button>
+        </Link>
       </div>
     </main>
   )
