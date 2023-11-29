@@ -6,9 +6,8 @@ export default function Home() {
       <div className="container">
         <h1>Scrum Quiz</h1>
         <Link href='/quiz'>
-          <button>Start Quiz</button>
+          <button>Academic Mode</button>
         </Link>
-
       </div>
     </main>
   )
