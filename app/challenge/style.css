@@ -1,0 +1,57 @@
+.container-in {
+    display: flex;
+    flex-direction: column; /* Aligns the two players' areas side by side */    
+    height: 100vh; /* Adjust as needed */
+}
+
+.quiz-container {
+    display: flex;
+    flex-direction: column; /* Stack sections vertically */
+    height: 100%; /* Adjust as needed */
+}
+
+.quiz-section {
+    flex: 1;
+    padding: 20px;
+    border-right: 2px solid #ddd;
+    transform-origin: center; /* Ensures the rotation happens around the center */
+
+}
+
+.quiz-section.playerOne {
+    transform: rotate(180deg); /* Rotates Player 1's section */
+    text-align: center;
+}
+
+.quiz-section:last-child {
+    border-right: none;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    cursor: pointer;
+    padding: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+}
+
+li.selected {
+    color: white;
+}
+
+.results-container {
+    display: flex;
+    justify-content: center;
+}
+
+.result {
+    padding: 20px;
+    text-align: center;
+}
+
+h2{
+    color: gray;
+}
