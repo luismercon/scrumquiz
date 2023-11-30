@@ -96,8 +96,9 @@ const page = () => {
 
 const QuizSection = ({ player, playerData, activeQuestion, question, answers, correctAnswer, handleAnswerSelection }) => (
     <div className={`quiz-section ${player}`}>
-        <h2>Question: {activeQuestion + 1}/{quiz.questions.length}</h2>
+
         <h3>{question}</h3>
+        <span>Question: {activeQuestion + 1}/{quiz.questions.length}</span>
         <ul>
             {answers.map((answer, idx) => (
                 <li key={idx}
@@ -114,7 +115,6 @@ const QuizSection = ({ player, playerData, activeQuestion, question, answers, co
 const Results = ({ playerOne, playerTwo }) => {
     const playerOneWon = playerOne.score > playerTwo.score;
 
-    // Determine the background color based on who won or lost
     const playerOneColor = playerOneWon ? 'green' : 'red';
     const playerTwoColor = playerOneWon ? 'red' : 'green';
 

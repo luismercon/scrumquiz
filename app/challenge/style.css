@@ -1,25 +1,30 @@
 .container-in {
     display: flex;
-    flex-direction: column; /* Aligns the two players' areas side by side */    
-    height: 100vh; /* Adjust as needed */
+    flex-direction: column;   
+    height: 100vh; 
 }
 
 .quiz-container {
     display: flex;
-    flex-direction: column; /* Stack sections vertically */
-    height: 100%; /* Adjust as needed */
+    flex-direction: column; 
+    height: 100%; 
 }
 
 .quiz-section {
     flex: 1;
     padding: 20px;
     border-right: 2px solid #ddd;
-    transform-origin: center; /* Ensures the rotation happens around the center */
+    transform-origin: center; 
+    text-align: center;
 
 }
 
+span {
+    font-size: smaller;
+}
+
 .quiz-section.playerOne {
-    transform: rotate(180deg); /* Rotates Player 1's section */
+    transform: rotate(180deg); 
     text-align: center;
 }
 
@@ -57,9 +62,7 @@ li.selected {
     transform-origin: center;
 }
 
-/* Result section for Player One */
 .result.playerOne {
-    /* Rotate Player One's result section to face them */
     transform: rotate(180deg);
     transform-origin: center;
 }
@@ -70,6 +73,7 @@ h2{
 
 h3{
     color: black;
+    padding: 0;
 }
 
 h4{
