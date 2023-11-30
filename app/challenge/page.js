@@ -117,14 +117,14 @@ const Results = ({ playerOne, playerTwo }) => {
         <div className="results-container">
             {/* Winner's Result */}
             <div className={`result winner ${playerOneWon ? "playerOne" : "playerTwo"}`} style={{ backgroundColor: 'green' }}>
-                <h3>{playerOneWon ? "Player One" : "Player Two"} Wins!</h3>
+                <h4>{playerOneWon ? "Player One" : "Player Two"} Wins!</h4>
                 <p>Player One Score: {playerOne.score}</p>
                 <p>Player Two Score: {playerTwo.score}</p>
             </div>
 
             {/* Loser's Result */}
             <div className={`result loser ${playerOneWon ? "playerTwo" : "playerOne"}`} style={{ backgroundColor: 'red' }}>
-                <h3>{playerOneWon ? "Player Two" : "Player One"} Loses</h3>
+                <h4>{playerOneWon ? "Player Two" : "Player One"} Loses</h4>
                 <p>Player One Score: {playerOne.score}</p>
                 <p>Player Two Score: {playerTwo.score}</p>
             </div>
