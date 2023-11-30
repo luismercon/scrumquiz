@@ -57,6 +57,13 @@ li.selected {
     transform-origin: center;
 }
 
+/* Result section for Player One */
+.result.playerOne {
+    /* Rotate Player One's result section to face them */
+    transform: rotate(180deg);
+    transform-origin: center;
+}
+
 h2{
     color: gray;
 }

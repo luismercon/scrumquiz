@@ -113,24 +113,29 @@ const QuizSection = ({ player, playerData, activeQuestion, question, answers, co
 const Results = ({ playerOne, playerTwo }) => {
     const playerOneWon = playerOne.score > playerTwo.score;
 
+    // Determine the background color based on who won or lost
+    const playerOneColor = playerOneWon ? 'green' : 'red';
+    const playerTwoColor = playerOneWon ? 'red' : 'green';
+
     return (
         <div className="results-container">
-            {/* Winner's Result */}
-            <div className={`result winner ${playerOneWon ? "playerOne" : "playerTwo"}`} style={{ backgroundColor: 'green' }}>
-                <h4>{playerOneWon ? "Player One" : "Player Two"} Wins!</h4>
+            {/* Player One's Result */}
+            <div className="result playerOne" style={{ backgroundColor: playerOneColor }}>
+                <h4>Player One {playerOneWon ? "Wins!" : "Loses"}</h4>
                 <p>Player One Score: {playerOne.score}</p>
                 <p>Player Two Score: {playerTwo.score}</p>
             </div>
 
-            {/* Loser's Result */}
-            <div className={`result loser ${playerOneWon ? "playerTwo" : "playerOne"}`} style={{ backgroundColor: 'red' }}>
-                <h4>{playerOneWon ? "Player Two" : "Player One"} Loses</h4>
+            {/* Player Two's Result */}
+            <div className="result playerTwo" style={{ backgroundColor: playerTwoColor }}>
+                <h4>Player Two {playerOneWon ? "Loses" : "Wins!"}</h4>
                 <p>Player One Score: {playerOne.score}</p>
                 <p>Player Two Score: {playerTwo.score}</p>
             </div>
         </div>
     );
 };
+
 
 
 export default page;
