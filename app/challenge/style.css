@@ -45,13 +45,22 @@ li.selected {
 .results-container {
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    color: white;
 }
 
 .result {
     padding: 20px;
     text-align: center;
+    flex: 1;
+    transform-origin: center;
 }
 
 h2{
     color: gray;
+}
+
+h3{
+    color: white;
 }
