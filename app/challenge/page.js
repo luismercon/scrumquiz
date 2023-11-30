@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import Link from "next/link"
 import { quiz } from '../data-challenge';
 import './style.css'
 
@@ -124,6 +125,9 @@ const Results = ({ playerOne, playerTwo }) => {
                 <h4>Player One {playerOneWon ? "Wins!" : "Loses"}</h4>
                 <p>Player One Score: {playerOne.score}</p>
                 <p>Player Two Score: {playerTwo.score}</p>
+                <Link href='/'>
+                    <button>Play Again</button>
+                </Link>
             </div>
 
             {/* Player Two's Result */}
@@ -131,6 +135,9 @@ const Results = ({ playerOne, playerTwo }) => {
                 <h4>Player Two {playerOneWon ? "Loses" : "Wins!"}</h4>
                 <p>Player One Score: {playerOne.score}</p>
                 <p>Player Two Score: {playerTwo.score}</p>
+                <Link href='/'>
+                    <button>Play Again</button>
+                </Link>
             </div>
         </div>
     );
