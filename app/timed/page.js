@@ -36,11 +36,13 @@ const page = () => {
             setPlayerTwo({ ...playerTwo, ...updatedPlayer, score: playerTwo.score + (isCorrect ? 2 : -1) });
         }
 
+        let seconds = isCorrect ? 2000 : 10000
+
         setAllowAnswer(false);
         setTimeout(() => {
             goToNextQuestion();
             setAllowAnswer(true);
-        }, 2000);
+        }, seconds);
     };
 
 
@@ -103,23 +105,28 @@ const page = () => {
 
 }
 
-const QuizSection = ({ player, playerData, activeQuestion, question, answers, correctAnswer, handleAnswerSelection }) => (
-    <div className={`quiz-section ${player}`}>
+const QuizSection = ({ player, playerData, activeQuestion, question, answers, correctAnswer, handleAnswerSelection }) => {
 
-        <h3>{question}</h3>
-        <span>Question: {activeQuestion + 1}/{quiz.questions.length}</span>
-        <ul>
-            {answers.map((answer, idx) => (
-                <li key={idx}
-                    className={playerData.selectedAnswerIndex === idx ? 'selected' : ''}
-                    onClick={() => handleAnswerSelection(answer, idx, player)}
-                    style={{ backgroundColor: playerData.selectedAnswerIndex === idx ? (answer === correctAnswer ? 'green' : 'red') : 'transparent' }}>
-                    {answer}
-                </li>
-            ))}
-        </ul>
-    </div>
-);
+    console.log("xxxxxxxxx", correctAnswer)
+
+    return (
+        <div className={`quiz-section ${player}`}>
+
+            <h3>{question}</h3>
+            <span>Question: {activeQuestion + 1}/{quiz.questions.length}</span>
+            <ul>
+                {answers.map((answer, idx) => (
+                    <li key={idx}
+                        className={playerData.selectedAnswerIndex === idx ? 'selected' : ''}
+                        onClick={() => handleAnswerSelection(answer, idx, player)}
+                        style={{ backgroundColor: playerData.selectedAnswerIndex === idx ? (answer === correctAnswer ? 'green' : 'red') : 'transparent' }}>
+                        {answer}
+                    </li>
+                ))}
+            </ul>
+        </div >
+    );
+}
 
 const Results = ({ playerOne, playerTwo }) => {
     const isDraw = playerOne.score === playerTwo.score;
