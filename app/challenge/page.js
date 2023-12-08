@@ -14,6 +14,10 @@ const page = () => {
     const [showResult, setShowResult] = useState(false);
     const [allowAnswer, setAllowAnswer] = useState(true);
 
+    console.log("Updated Player One:", playerOne);
+    console.log("Updated Player Two:", playerTwo);
+
+
     const { question, answers, correctAnswer } = quiz.questions[activeQuestion];
 
     const handleStart = () => {
@@ -46,10 +50,11 @@ const page = () => {
             setShowResult(true);
         } else {
             setActiveQuestion((prev) => prev + 1);
-            setPlayerOne({ ...playerOne, selectedAnswerIndex: null, answered: false });
-            setPlayerTwo({ ...playerTwo, selectedAnswerIndex: null, answered: false });
+            setPlayerOne(prevState => ({ ...prevState, selectedAnswerIndex: null, answered: false }));
+            setPlayerTwo(prevState => ({ ...prevState, selectedAnswerIndex: null, answered: false }));
         }
     };
+
 
     return (
         <div className="container">
@@ -113,16 +118,16 @@ const QuizSection = ({ player, playerData, activeQuestion, question, answers, co
 );
 
 const Results = ({ playerOne, playerTwo }) => {
-    const playerOneWon = playerOne.score > playerTwo.score;
+    const isDraw = playerOne.score === playerTwo.score;
 
-    const playerOneColor = playerOneWon ? 'green' : 'red';
-    const playerTwoColor = playerOneWon ? 'red' : 'green';
+    const playerOneColor = isDraw ? 'black' : (playerOne.score > playerTwo.score ? 'green' : 'red');
+    const playerTwoColor = isDraw ? 'black' : (playerOne.score < playerTwo.score ? 'green' : 'red');
 
     return (
         <div className="results-container">
             {/* Player One's Result */}
             <div className="result playerOne" style={{ backgroundColor: playerOneColor }}>
-                <h4>Player One {playerOneWon ? "Wins!" : "Loses"}</h4>
+                <h4>{isDraw ? "It's a Draw" : playerOne.score > playerTwo.score ? "Player One Wins!" : "Player One Loses"}</h4>
                 <p>Player One Score: {playerOne.score}</p>
                 <p>Player Two Score: {playerTwo.score}</p>
                 <Link href='/'>
@@ -132,7 +137,7 @@ const Results = ({ playerOne, playerTwo }) => {
 
             {/* Player Two's Result */}
             <div className="result playerTwo" style={{ backgroundColor: playerTwoColor }}>
-                <h4>Player Two {playerOneWon ? "Loses" : "Wins!"}</h4>
+                <h4>{isDraw ? "It's a Draw" : playerOne.score < playerTwo.score ? "Player Two Wins!" : "Player Two Loses"}</h4>
                 <p>Player One Score: {playerOne.score}</p>
                 <p>Player Two Score: {playerTwo.score}</p>
                 <Link href='/'>
@@ -142,6 +147,7 @@ const Results = ({ playerOne, playerTwo }) => {
         </div>
     );
 };
+
 
 
 
