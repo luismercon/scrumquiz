@@ -1,0 +1,87 @@
+.container-in {
+    display: flex;
+    flex-direction: column;   
+    height: 100vh; 
+}
+
+.quiz-container {
+    display: flex;
+    flex-direction: column; 
+    /* height: 100%;  */
+}
+
+.quiz-section {
+    flex: 1;
+    padding: 20px;
+    border-right: 2px solid #ddd;
+    transform-origin: center; 
+    text-align: center;
+
+}
+
+span {
+    font-size: smaller;
+}
+
+.quiz-section.playerOne {
+    transform: rotate(180deg); 
+    text-align: center;
+}
+
+.quiz-section:last-child {
+    border-right: none;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    cursor: pointer;
+    padding: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+}
+
+li.selected {
+    color: white;
+}
+
+.results-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    color: white;
+}
+
+.result {
+    padding: 20px;
+    text-align: center;
+    flex: 1;
+    transform-origin: center;
+}
+
+.result.playerOne {
+    transform: rotate(180deg);
+    transform-origin: center;
+}
+
+h2{
+    color: gray;
+}
+
+h3{
+    color: black;
+    padding: 0;
+}
+
+h4{
+    color: white;
+    font-size: xx-large;
+}
+
+.how-to-play{
+    color: #ddd;
+
+}
