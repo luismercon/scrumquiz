@@ -12,8 +12,8 @@ const page = () => {
     const [playerOne, setPlayerOne] = useState({ score: 0, selectedAnswerIndex: null, answered: false });
     const [playerTwo, setPlayerTwo] = useState({ score: 0, selectedAnswerIndex: null, answered: false });
     const [showResult, setShowResult] = useState(false);
-    const [allowAnswer, setAllowAnswer] = useState(true);
     const [wrongAnswerIndex, setWrongAnswerIndex] = useState(null);
+    const [timeoutId, setTimeoutId] = useState(null);
 
 
     console.log("Updated Player One:", playerOne);
@@ -27,30 +27,47 @@ const page = () => {
     }
 
     const handleAnswerSelection = (answer, index, player) => {
-        if (!allowAnswer) return;
-
         const isCorrect = answer === correctAnswer;
-        let updatedPlayer = { selectedAnswerIndex: index, answered: true };
 
-        if (!isCorrect) {
-            setWrongAnswerIndex(index);
-        } else {
-            setWrongAnswerIndex(null); // Reset if the answer is correct
+        if ((player === "playerOne" && playerOne.disabled) || (player === "playerTwo" && playerTwo.disabled)) {
+            return;
         }
+
+        let updatedPlayerOne = { ...playerOne };
+        let updatedPlayerTwo = { ...playerTwo };
 
         if (player === "playerOne") {
-            setPlayerOne({ ...playerOne, ...updatedPlayer, score: playerOne.score + (isCorrect ? 2 : -1) });
-        } else {
-            setPlayerTwo({ ...playerTwo, ...updatedPlayer, score: playerTwo.score + (isCorrect ? 2 : -1) });
+            updatedPlayerOne = { ...playerOne, selectedAnswerIndex: index, answered: true };
+            if (!isCorrect) {
+                updatedPlayerOne.score -= 1;
+                updatedPlayerOne.disabled = true;
+            } else {
+                updatedPlayerOne.score += 2;
+            }
+        } else if (player === "playerTwo") {
+            updatedPlayerTwo = { ...playerTwo, selectedAnswerIndex: index, answered: true };
+            if (!isCorrect) {
+                updatedPlayerTwo.score -= 1;
+                updatedPlayerTwo.disabled = true;
+            } else {
+                updatedPlayerTwo.score += 2;
+            }
         }
 
-        let seconds = isCorrect ? 2000 : 10000
+        setPlayerOne(updatedPlayerOne);
+        setPlayerTwo(updatedPlayerTwo);
 
-        setAllowAnswer(false);
-        setTimeout(() => {
+        setWrongAnswerIndex(isCorrect ? null : index);
+
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+
+        const newTimeoutId = setTimeout(() => {
             goToNextQuestion();
-            setAllowAnswer(true);
-        }, seconds);
+        }, isCorrect ? 2000 : 10000);
+
+        setTimeoutId(newTimeoutId);
     };
 
 
@@ -60,11 +77,15 @@ const page = () => {
             setShowResult(true);
         } else {
             setActiveQuestion((prev) => prev + 1);
-            setPlayerOne(prevState => ({ ...prevState, selectedAnswerIndex: null, answered: false }));
-            setPlayerTwo(prevState => ({ ...prevState, selectedAnswerIndex: null, answered: false }));
-            setWrongAnswerIndex(null); // Reset the wrong answer index here
+            setPlayerOne(prevState => ({ ...prevState, selectedAnswerIndex: null, answered: false, disabled: false }));
+            setPlayerTwo(prevState => ({ ...prevState, selectedAnswerIndex: null, answered: false, disabled: false }));
+            setWrongAnswerIndex(null);
         }
+
+        setTimeoutId(null);
     };
+
+
 
 
 
@@ -87,6 +108,7 @@ const page = () => {
                             <QuizSection
                                 player="playerOne"
                                 playerData={playerOne}
+                                opponentData={playerTwo}
                                 activeQuestion={activeQuestion}
                                 question={question}
                                 answers={answers}
@@ -97,6 +119,7 @@ const page = () => {
                             <QuizSection
                                 player="playerTwo"
                                 playerData={playerTwo}
+                                opponentData={playerOne}
                                 activeQuestion={activeQuestion}
                                 question={question}
                                 answers={answers}
@@ -117,9 +140,7 @@ const page = () => {
 
 }
 
-const QuizSection = ({ player, playerData, activeQuestion, question, answers, correctAnswer, handleAnswerSelection, wrongAnswerIndex }) => {
-
-    console.log("xxxxxxxxx", correctAnswer)
+const QuizSection = ({ player, playerData, opponentData, activeQuestion, question, answers, correctAnswer, handleAnswerSelection, wrongAnswerIndex }) => {
 
     return (
         <div className={`quiz-section ${player}`}>
@@ -127,21 +148,36 @@ const QuizSection = ({ player, playerData, activeQuestion, question, answers, co
             <h3>{question}</h3>
             <span>Question: {activeQuestion + 1}/{quiz.questions.length}</span>
             <ul>
-                {answers.map((answer, idx) => (
-                    <li key={idx}
-                        className={playerData.selectedAnswerIndex === idx ? 'selected' : ''}
-                        onClick={() => handleAnswerSelection(answer, idx, player)}
-                        style={{
-                            backgroundColor: playerData.selectedAnswerIndex === idx ? (answer === correctAnswer ? 'green' : 'red') :
-                                idx === wrongAnswerIndex ? 'gray' : 'transparent'
-                        }}>
-                        {answer}
-                    </li>
-                ))}
+                {answers.map((answer, idx) => {
+                    const isSelectedByPlayer = playerData.selectedAnswerIndex === idx;
+                    const isSelectedByOpponent = opponentData.selectedAnswerIndex === idx;
+                    const isSelectedCorrectly = answer === correctAnswer;
+
+                    let backgroundColor;
+                    if (isSelectedByPlayer) {
+                        backgroundColor = isSelectedCorrectly ? 'green' : 'red';
+                    } else if (isSelectedByOpponent && isSelectedCorrectly) {
+                        console.log("NEVER ENTERS HERES")
+                        backgroundColor = 'gray';
+                    } else {
+                        backgroundColor = 'transparent';
+                    }
+
+                    return (
+                        <li key={idx}
+                            className={isSelectedByPlayer ? 'selected' : ''}
+                            onClick={() => !playerData.disabled && handleAnswerSelection(answer, idx, player)}
+                            style={{ backgroundColor }}>
+                            {answer}
+                        </li>
+                    );
+                })}
             </ul>
         </div >
     );
 }
+
+
 
 const Results = ({ playerOne, playerTwo }) => {
     const isDraw = playerOne.score === playerTwo.score;
