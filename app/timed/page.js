@@ -13,6 +13,8 @@ const page = () => {
     const [playerTwo, setPlayerTwo] = useState({ score: 0, selectedAnswerIndex: null, answered: false });
     const [showResult, setShowResult] = useState(false);
     const [allowAnswer, setAllowAnswer] = useState(true);
+    const [wrongAnswerIndex, setWrongAnswerIndex] = useState(null);
+
 
     console.log("Updated Player One:", playerOne);
     console.log("Updated Player Two:", playerTwo);
@@ -29,6 +31,12 @@ const page = () => {
 
         const isCorrect = answer === correctAnswer;
         let updatedPlayer = { selectedAnswerIndex: index, answered: true };
+
+        if (!isCorrect) {
+            setWrongAnswerIndex(index);
+        } else {
+            setWrongAnswerIndex(null); // Reset if the answer is correct
+        }
 
         if (player === "playerOne") {
             setPlayerOne({ ...playerOne, ...updatedPlayer, score: playerOne.score + (isCorrect ? 2 : -1) });
@@ -54,8 +62,10 @@ const page = () => {
             setActiveQuestion((prev) => prev + 1);
             setPlayerOne(prevState => ({ ...prevState, selectedAnswerIndex: null, answered: false }));
             setPlayerTwo(prevState => ({ ...prevState, selectedAnswerIndex: null, answered: false }));
+            setWrongAnswerIndex(null); // Reset the wrong answer index here
         }
     };
+
 
 
     return (
@@ -82,6 +92,7 @@ const page = () => {
                                 answers={answers}
                                 correctAnswer={correctAnswer}
                                 handleAnswerSelection={handleAnswerSelection}
+                                wrongAnswerIndex={wrongAnswerIndex}
                             />
                             <QuizSection
                                 player="playerTwo"
@@ -91,6 +102,7 @@ const page = () => {
                                 answers={answers}
                                 correctAnswer={correctAnswer}
                                 handleAnswerSelection={handleAnswerSelection}
+                                wrongAnswerIndex={wrongAnswerIndex}
                             />
                         </div>
                     ) : (
@@ -105,7 +117,7 @@ const page = () => {
 
 }
 
-const QuizSection = ({ player, playerData, activeQuestion, question, answers, correctAnswer, handleAnswerSelection }) => {
+const QuizSection = ({ player, playerData, activeQuestion, question, answers, correctAnswer, handleAnswerSelection, wrongAnswerIndex }) => {
 
     console.log("xxxxxxxxx", correctAnswer)
 
@@ -119,7 +131,10 @@ const QuizSection = ({ player, playerData, activeQuestion, question, answers, co
                     <li key={idx}
                         className={playerData.selectedAnswerIndex === idx ? 'selected' : ''}
                         onClick={() => handleAnswerSelection(answer, idx, player)}
-                        style={{ backgroundColor: playerData.selectedAnswerIndex === idx ? (answer === correctAnswer ? 'green' : 'red') : 'transparent' }}>
+                        style={{
+                            backgroundColor: playerData.selectedAnswerIndex === idx ? (answer === correctAnswer ? 'green' : 'red') :
+                                idx === wrongAnswerIndex ? 'gray' : 'transparent'
+                        }}>
                         {answer}
                     </li>
                 ))}
