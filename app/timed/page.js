@@ -156,8 +156,7 @@ const QuizSection = ({ player, playerData, opponentData, activeQuestion, questio
                     let backgroundColor;
                     if (isSelectedByPlayer) {
                         backgroundColor = isSelectedCorrectly ? 'green' : 'red';
-                    } else if (isSelectedByOpponent && isSelectedCorrectly) {
-                        console.log("NEVER ENTERS HERES")
+                    } else if (isSelectedByOpponent) {
                         backgroundColor = 'gray';
                     } else {
                         backgroundColor = 'transparent';
