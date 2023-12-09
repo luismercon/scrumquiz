@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import Link from "next/link"
-import { quiz } from '../data-challenge';
+import { quiz } from '../new_data';
 import './style.css'
 
 const page = () => {

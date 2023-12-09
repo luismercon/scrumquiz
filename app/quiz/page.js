@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { quiz } from '../data';
+import { quiz } from '../new_data';
 import confetti from 'canvas-confetti';
 import WrongAnswerModal from '../components/WrongAnswerModal'
 
