@@ -83,5 +83,15 @@ h4{
 
 .how-to-play{
     color: #ddd;
+}
 
+.how-to-play h3{
+    color: #ddd;
+    text-align: center;
+}
+
+.how-to-play li, p{
+    color: #ddd;
+    border: none;
+    font-size: small;
 }

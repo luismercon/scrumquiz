@@ -91,11 +91,22 @@ const page = () => {
 
     return (
         <div className="container">
-
             {
                 !isStarted &&
-                <div>
-                    <p className='how-to-play'>Instructions ....
+                <div className='how-to-play'>
+                    <h3>Welcome to our 1vs1 Quiz Game! Here’s how to play:</h3>
+                    <ol>
+                        <li>1. A question with three possible answers will be presented. Choose the one you believe is correct.</li>
+                        <li>2. If you answer incorrectly, your opponent will have a few seconds to try their luck with the same question.</li>
+                        <li>3. After your opponent's turn, whether they answer correctly, incorrectly, or time runs out, the game will proceed to the next question.</li>
+                        <li>4. Points are awarded based on your answers:</li>
+                        <ul>
+                            <li>- Correct answer: You earn +2 point.</li>
+                            <li>- Incorrect answer: You lose 1 point.</li>
+                            <li>- No answer: Your points remain the same.</li>
+                        </ul>
+                    </ol>
+                    <p >Remember, every point counts. Good luck and enjoy the game! 🎉
                     </p>
                     <button onClick={() => handleStart()}>Start</button>
                 </div>
