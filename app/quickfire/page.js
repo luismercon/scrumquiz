@@ -61,7 +61,23 @@ const page = () => {
 
             {
                 !isStarted &&
-                <button onClick={() => handleStart()}>Start</button>
+                <div className='how-to-play'>
+                    <h3>Welcome to our 1vs1 Quick Fire Quiz Game! Here’s how to play:
+                    </h3>
+                    <ol>
+                        <li>1.A question with three possible answers will be presented. Choose the one you believe is correct</li>
+                        <li>2.This mode is all about speed! Regardless of whether the first user’s answer is right or wrong, the game will immediately move on to the next question.</li>
+                        <li>3.Points are awarded based on your answers:</li>
+                        <ul>
+                            <li>- Correct answer: You earn 2 points.</li>
+                            <li>- Incorrect answer: You lose 1 point.</li>
+                            <li>- Incorrect answer: You lose 1 point.</li>
+                        </ul>
+                    </ol>
+                    <p >Remember, speed and accuracy are key. Good luck and enjoy the game! 🎉
+                    </p>
+                    <button onClick={() => handleStart()}>Start</button>
+                </div>
             }
             {
                 isStarted &&
